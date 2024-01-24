@@ -83,19 +83,33 @@ public class CreaterUserTest extends BaseTest {
                 .body("message", hasItem("can't be blank"));
     }
     @Test
-    public void validaBodyRequestSemStatus(){
+    public void validaBodyRequestSemStatus() {
+
         given()
                 .header("Authorization", "Bearer " + APP_TOKEN)
-                .body("{ \"name\": \"Nome do usuário\",\n" +
-                        "\"gender\": \"Género do usuário\",\n" +
-                        "\"email\": \"email do usuário\",\n" +
-                        "\"status\": \"status do usuário\"}")
+                .body("{ \"name\": \"userTest\",\n" +
+                        "\"gender\": \"male\",\n" +
+                        "\"email\": \"teste@ggmail.com\"}")
                 .when()
                 .post("v2/users")
                 .then()
                 .statusCode(422)
-                .body("field", hasItem("email"))
+                .body("field", hasItem("status"))
                 .body("message", hasItem("can't be blank"));
+    }
+    @Test
+    public void validaCreatedComSucesso(){
+        given()
+                .header("Authorization", "Bearer " + APP_TOKEN)
+                .body("{ \"name\": \"Teste usuario\",\n" +
+                        "\"gender\": \"male\",\n" +
+                        "\"email\": \"testeusuarioo1@ggmail.com\",\n" +
+                        "\"status\": \"active\"}")
+                .when()
+                .post("v2/users")
+                .then()
+                .statusCode(201);
+
     }
 
 
