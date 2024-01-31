@@ -1,17 +1,17 @@
 package in.co.gorest.tests;
 
 import in.co.gorest.core.BaseTest;
-import io.restassured.response.ResponseBodyExtractionOptions;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
+import static in.co.gorest.utils.Reutilizaveis.retornaDataAtualEmString;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 public class CreaterUserTest extends BaseTest {
+
     @Test
     public void cadastrarSemToken() {
         given()
@@ -31,13 +31,16 @@ public class CreaterUserTest extends BaseTest {
 
     @Test
     public void validaBodyRequestSemNome() {
+        Map<String,Object> params = new HashMap<String, Object>();
+        params.put("name","");
+        params.put("gender", "male");
+        params.put("email","teste@ggmail.com");
+        params.put("status", "active");
 
 
             given()
                     .header("Authorization", "Bearer " + APP_TOKEN)
-                    .body("{ \"gender\": \"male\",\n" +
-                            "\"email\": \"testandoSemNome@ggmail.com\",\n" +
-                            "\"status\": \"active\"}")
+                    .body(params)
                     .when()
                     .post("v2/users")
                     .then()
@@ -51,12 +54,15 @@ public class CreaterUserTest extends BaseTest {
 
     @Test
     public void validaBodyRequestSemGender() {
+        Map<String,Object> params = new HashMap<String, Object>();
+        params.put("name","Testes");
+        params.put("gender", "");
+        params.put("email","teste@ggmail.com");
+        params.put("status", "active");
 
         given()
                 .header("Authorization", "Bearer " + APP_TOKEN)
-                .body("{ \"name\": \"userTest\",\n" +
-                        "\"email\": \"teste@ggteste.com\",\n" +
-                        "\"status\": \"active\"}")
+                .body(params)
                 .when()
                 .post("v2/users")
                 .then()
@@ -69,12 +75,15 @@ public class CreaterUserTest extends BaseTest {
 
     @Test
     public void validaBodyRequestSemEmail() {
+        Map<String,Object> params = new HashMap<String, Object>();
+        params.put("name","Testes");
+        params.put("gender", "male");
+        params.put("email","");
+        params.put("status", "active");
 
         given()
                 .header("Authorization", "Bearer " + APP_TOKEN)
-                .body("{ \"name\": \"userTest\",\n" +
-                        "\"gender\": \"male\",\n" +
-                        "\"status\": \"active\"}")
+                .body(params)
                 .when()
                 .post("v2/users")
                 .then()
@@ -84,12 +93,15 @@ public class CreaterUserTest extends BaseTest {
     }
     @Test
     public void validaBodyRequestSemStatus() {
+        Map<String,Object> params = new HashMap<String, Object>();
+        params.put("name","Testes");
+        params.put("gender", "male");
+        params.put("email","testuse@gmail.com");
+        params.put("status", "");
 
         given()
                 .header("Authorization", "Bearer " + APP_TOKEN)
-                .body("{ \"name\": \"userTest\",\n" +
-                        "\"gender\": \"male\",\n" +
-                        "\"email\": \"teste@ggmail.com\"}")
+                .body(params)
                 .when()
                 .post("v2/users")
                 .then()
@@ -99,18 +111,68 @@ public class CreaterUserTest extends BaseTest {
     }
     @Test
     public void validaCreatedComSucesso(){
-        given()
+        Map<String,Object> params = new HashMap<String, Object>();
+        String flexUser = retornaDataAtualEmString();
+
+        params.put("name","Testes");
+        params.put("gender", "male");
+        params.put("email","testuse"+flexUser+"@gmail.com");
+        params.put("status", "active");
+
+                 given()
                 .header("Authorization", "Bearer " + APP_TOKEN)
-                .body("{ \"name\": \"Teste usuario\",\n" +
-                        "\"gender\": \"male\",\n" +
-                        "\"email\": \"testeusuarioo1@ggmail.com\",\n" +
-                        "\"status\": \"active\"}")
+                .body(params)
                 .when()
                 .post("v2/users")
                 .then()
-                .statusCode(201);
+                .statusCode(201)
+                         .body("id", notNullValue());
+
+
+
+    }
+    @Test
+    public void validaUsuarioJaCadastrado(){
+        for (int i = 0 ; i <= 1 ; i++){
+            Map<String,Object> params = new HashMap<String, Object>();
+            String flexUser = retornaDataAtualEmString();
+
+            params.put("name","Testes");
+            params.put("gender", "male");
+            params.put("email","testuse"+flexUser+"@gmail.com");
+            params.put("status", "active");
+
+            given()
+                    .header("Authorization", "Bearer " + APP_TOKEN)
+                    .body(params)
+                    .when()
+                    .post("v2/users")
+                    .then()
+                    .statusCode(201)
+                    .body("id", notNullValue());
+            for (int j = 0; j <= i ; j++){
+                params.put("name","Testes");
+                params.put("gender", "male");
+                params.put("email","testuse"+flexUser+"@gmail.com");
+                params.put("status", "active");
+
+                given()
+                        .header("Authorization", "Bearer " + APP_TOKEN)
+                        .body(params)
+                        .when()
+                        .post("v2/users")
+                        .then()
+                        .statusCode(422)
+                        .body("field", hasItem("email"))
+                        .body("message", hasItem("has already been taken"));
+
+            }
+        }
+    }
+
+
 
     }
 
 
-}
+
