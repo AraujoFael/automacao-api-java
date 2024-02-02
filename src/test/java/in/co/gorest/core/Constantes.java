@@ -7,7 +7,7 @@ public interface Constantes {
    // Integer APP_PORT = ; --> se for uma API local
     String APP_BASE_PATH = "";
 
-    String APP_TOKEN ="a363762856f44341a3ca97bbd6f07152eaaa9885f8ea7949c008d34c06d09731";
+    String APP_TOKEN ="17653cf0a61ae53a32558967107d67c2a64f27c62c393a9e6906e18ad732c2ac";
     ContentType APP_CONTENT_TYPE = ContentType.JSON;
     Long MAX_TIMEOUT = 5000L;
 }
