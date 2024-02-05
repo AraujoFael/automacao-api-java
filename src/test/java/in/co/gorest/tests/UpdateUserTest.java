@@ -82,64 +82,47 @@ public class UpdateUserTest extends BaseTest {
     }
     @Test
     public void requisicaoEmailEmUso(){
-        for(int j= 0 ; j <= 1 ; j++) {
-            Map<String,Object> paramsCreated = new HashMap<String, Object>();
-            String flexUser = retornaDataAtualEmString();
-            String emailEmUso = "";
+        // Criação do primeiro usuário
+        Map<String, Object> paramsCreated1 = createUser("Testes1");
+        String email1 = (String) paramsCreated1.get("email");
 
-            paramsCreated.put("name","Testes");
-            paramsCreated.put("gender", "male");
-            paramsCreated.put("email","testuse"+flexUser+"@gmail.com");
-            paramsCreated.put("status", "active");
+        // Criação do segundo usuário
+        Map<String, Object> paramsCreated2 = createUser("Testes2");
+        Integer idUsuario2 = (Integer) paramsCreated2.get("id");
 
-    emailEmUso =  given()
-                    .header("Authorization", "Bearer " + APP_TOKEN)
-                    .body(paramsCreated)
-                    .when()
-                    .post("v2/users")
-                    .then()
-                    .statusCode(201)
-                    .body("id", notNullValue())
-            .extract().path("email");
-            for(int h = 0 ; h <= 0; h++){
-                Map<String,Object> paramsCreated1 = new HashMap<String, Object>();
-                String flexUser1 = retornaDataAtualEmString();
-                String idUsuario = "";
+        // Tentativa de editar o segundo usuário com o email do primeiro
+        Map<String, Object> paramsPatch = new HashMap<>();
+        paramsPatch.put("name", "Testando");
+        paramsPatch.put("email", email1);
+        paramsPatch.put("status", "active");
 
-                paramsCreated1.put("name","Testes");
-                paramsCreated1.put("gender", "male");
-                paramsCreated1.put("email","testuse"+flexUser1+"@gmail.com");
-                paramsCreated1.put("status", "active");
+        given()
+                .header("Authorization", "Bearer " + APP_TOKEN)
+                .body(paramsPatch)
+                .when()
+                .patch("v2/users/" + idUsuario2)
+                .then()
+                .body("field", hasItem("email"))
+                .body("message", hasItem("has already been taken"))
+                .statusCode(422);
+    }
+    private Map createUser(String namePrefix) {
+        String flexUser = retornaDataAtualEmString();
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", namePrefix + flexUser);
+        params.put("gender", "male");
+        params.put("email", namePrefix + flexUser + "@gmail.com");
+        params.put("status", "active");
 
-                idUsuario =  given()
-                        .header("Authorization", "Bearer " + APP_TOKEN)
-                        .body(paramsCreated1)
-                        .when()
-                        .post("v2/users")
-                        .then()
-                        .statusCode(201)
-                        .body("id", notNullValue())
-                        .extract().path("id");
-
-            for (int i = 0; i <= 1; i++) {
-                Map<String, Object> params = new HashMap<>();
-                params.put("name", "Testando");
-                params.put("email", emailEmUso);
-                params.put("status", "active");
-                Integer idCovertido = Integer.valueOf(idUsuario);
-
-                given()
-                        .header("Authorization", "Bearer " + APP_TOKEN)
-                        .body(params)
-                        .when()
-                        .patch("v2/users/" + idCovertido)
-                        .then()
-                        .body("field", hasItem("email"))
-                        .body("message", hasItem("can't be blank"))
-                        .statusCode(500);
-            }
-            }
-        }
+        return given()
+                .header("Authorization", "Bearer " + APP_TOKEN)
+                .body(params)
+                .when()
+                .post("v2/users")
+                .then()
+                .statusCode(201)
+                .body("id", notNullValue())
+                .extract().as(Map.class);
     }
   // Ajustar para testar email já existente 
 }
