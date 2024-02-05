@@ -7,9 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static in.co.gorest.utils.Reutilizaveis.retornaDataAtualEmString;
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.Matchers.notNullValue;
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.CoreMatchers.*;
 
 public class UpdateUserTest extends BaseTest {
     @Test
@@ -105,6 +104,27 @@ public class UpdateUserTest extends BaseTest {
                 .body("field", hasItem("email"))
                 .body("message", hasItem("has already been taken"))
                 .statusCode(422);
+    }
+    @Test
+    public void requisicaoAlteracaoComSucesso(){
+        Map<String, Object> paramsCreated2 = createUser("Testes2");
+        Integer idUsuario2 = (Integer) paramsCreated2.get("id");
+        String flexUser = retornaDataAtualEmString();
+
+        // Tentativa de editar o segundo usuário com o email do primeiro
+        Map<String, Object> paramsPatch = new HashMap<>();
+        paramsPatch.put("name", "TestandoAlteração");
+        paramsPatch.put("email", "alterandoemail"+flexUser+"@ggmail.com");
+        paramsPatch.put("status", "active");
+
+        given()
+                .header("Authorization", "Bearer " + APP_TOKEN)
+                .body(paramsPatch)
+                .when()
+                .patch("v2/users/" + idUsuario2)
+                .then()
+                .body("id", is(idUsuario2))
+                .statusCode(200);
     }
     private Map createUser(String namePrefix) {
         String flexUser = retornaDataAtualEmString();
