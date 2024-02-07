@@ -144,5 +144,5 @@ public class UpdateUserTest extends BaseTest {
                 .body("id", notNullValue())
                 .extract().as(Map.class);
     }
-  // Ajustar para testar email já existente 
+
 }
