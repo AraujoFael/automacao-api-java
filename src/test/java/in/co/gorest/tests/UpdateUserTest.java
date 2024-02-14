@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static in.co.gorest.utils.Reutilizaveis.createUser;
 import static in.co.gorest.utils.Reutilizaveis.retornaDataAtualEmString;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -126,23 +127,6 @@ public class UpdateUserTest extends BaseTest {
                 .body("id", is(idUsuario2))
                 .statusCode(200);
     }
-    private Map createUser(String namePrefix) {
-        String flexUser = retornaDataAtualEmString();
-        Map<String, Object> params = new HashMap<>();
-        params.put("name", namePrefix + flexUser);
-        params.put("gender", "male");
-        params.put("email", namePrefix + flexUser + "@gmail.com");
-        params.put("status", "active");
 
-        return given()
-                .header("Authorization", "Bearer " + APP_TOKEN)
-                .body(params)
-                .when()
-                .post("v2/users")
-                .then()
-                .statusCode(201)
-                .body("id", notNullValue())
-                .extract().as(Map.class);
-    }
 
 }
