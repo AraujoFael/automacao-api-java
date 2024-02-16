@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static in.co.gorest.utils.Reutilizaveis.createUser;
 import static in.co.gorest.utils.Reutilizaveis.retornaDataAtualEmString;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
@@ -133,27 +134,15 @@ public class CreaterUserTest extends BaseTest {
     }
     @Test
     public void validaUsuarioJaCadastrado(){
-        for (int i = 0 ; i <= 1 ; i++){
+        Map<String, Object> usercreated = createUser("TestandoDelete");
+        String emailJaExistente = (String) usercreated.get("email");
+
             Map<String,Object> params = new HashMap<String, Object>();
             String flexUser = retornaDataAtualEmString();
 
-            params.put("name","Testes");
-            params.put("gender", "male");
-            params.put("email","testuse"+flexUser+"@gmail.com");
-            params.put("status", "active");
-
-            given()
-                    .header("Authorization", "Bearer " + APP_TOKEN)
-                    .body(params)
-                    .when()
-                    .post("v2/users")
-                    .then()
-                    .statusCode(201)
-                    .body("id", notNullValue());
-            for (int j = 0; j <= i ; j++){
                 params.put("name","Testes");
                 params.put("gender", "male");
-                params.put("email","testuse"+flexUser+"@gmail.com");
+                params.put("email",emailJaExistente);
                 params.put("status", "active");
 
                 given()
@@ -166,8 +155,8 @@ public class CreaterUserTest extends BaseTest {
                         .body("field", hasItem("email"))
                         .body("message", hasItem("has already been taken"));
 
-            }
-        }
+
+
     }
 
 
