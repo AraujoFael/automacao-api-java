@@ -36,6 +36,22 @@ Este repositório serve como um portfólio abrangente para demonstrar habilidade
 5. **Estrutura Hierárquica de Testes:**
    - Organização dos testes em uma estrutura hierárquica que reflete a arquitetura da aplicação, facilitando a identificação e execução específica de conjuntos de testes.
   
+     **Estrutura: **
+projeto-automacao-api/
+     
+├── src/
+│   └── test/
+│       └── java/
+│           └── tests/
+|               └── (arquivos de teste)
+│               ├── core/
+│               │   └── (arquivos do core)
+│               ├── utils/
+│               │   └── (arquivos de utilidades) 
+├── pom.xml (opcional, se estiver usando Maven)
+└── README.md
+
+  
    ## Como Clonar o Repositório
 
 Para clonar este repositório para o seu computador local, siga estas instruções:
@@ -47,4 +63,23 @@ Para clonar este repositório para o seu computador local, siga estas instruçõ
 3. **Navegue até o Diretório Desejado:** Use o comando `cd` seguido do caminho para o diretório onde deseja armazenar o repositório clonado.
 
 4. **Clone o Repositório:** No terminal, cole o URL copiado e execute o seguinte comando:
+   Por exemplo:
+      git clone <URL_do_seu_repositorio>
+
+5. **Pressione Enter:** Depois de digitar o comando, pressione Enter. O Git irá clonar o repositório para o diretório atual.
+
+Agora você clonou com sucesso o seu repositório de portfólio para o seu computador. Você pode começar a trabalhar no projeto localmente ou explorar o código-fonte e os arquivos do projeto.
+
+---
+
+## Como Executar os Testes
+
+Para executar os testes neste repositório sem usar o Maven, siga estas etapas:
+
+1. **Abra o projeto com uma IDE de sua preferência**
+
+2. **Navegue até o Diretório do Projeto:** Após acessar o projeto vá a até a package tests.
+
+3. **Execute os Testes de Cada Classe:** Como o Junit já se encotra como depedência do projeto basta executar o teste desejado de cada classe ou executar a class como um todo.
+
 
