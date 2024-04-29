@@ -38,16 +38,15 @@ Este repositório serve como um portfólio abrangente para demonstrar habilidade
   
      **Estrutura: **
 projeto-automacao-api/
-     
 ├── src/
-│   └── test/
-│       └── java/
-│           └── tests/
-|               └── (arquivos de teste)
-│               ├── core/
-│               │   └── (arquivos do core)
-│               ├── utils/
-│               │   └── (arquivos de utilidades) 
+│ └── test/
+│ └── java/
+│ └── tests/
+│ ├── core/
+│ │ └── (arquivos do core)
+│ ├── utils/
+│ │ └── (arquivos de utilidades)
+│ └── (arquivos de teste)
 ├── pom.xml (opcional, se estiver usando Maven)
 └── README.md
 
