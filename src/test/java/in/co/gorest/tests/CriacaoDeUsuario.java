@@ -11,7 +11,7 @@ import static in.co.gorest.utils.Reutilizaveis.retornaDataAtualEmString;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-public class CreaterUserTest extends BaseTest {
+public class CriacaoDeUsuario extends BaseTest {
 
     @Test
     public void cadastrarSemToken() {
@@ -28,7 +28,6 @@ public class CreaterUserTest extends BaseTest {
 
 
     }
-
 
     @Test
     public void validaBodyRequestSemNome() {
@@ -154,7 +153,6 @@ public class CreaterUserTest extends BaseTest {
                         .statusCode(422)
                         .body("field", hasItem("email"))
                         .body("message", hasItem("has already been taken"));
-
 
 
     }

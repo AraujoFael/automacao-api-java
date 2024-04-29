@@ -4,14 +4,13 @@ package in.co.gorest.tests;
 import in.co.gorest.core.BaseTest;
 import org.junit.Test;
 
-import java.util.HashMap;
 import java.util.Map;
 
 
 import static in.co.gorest.utils.Reutilizaveis.createUser;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.CoreMatchers.*;
-public class ListUserTest extends BaseTest {
+public class ListandoUsuarios extends BaseTest {
     @Test
     public void listagemDeSucesso() {
         Map<String, Object> usercreated = createUser("TestandoDelete");

@@ -1,11 +1,6 @@
 package in.co.gorest.utils;
 
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-
-import javax.swing.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 

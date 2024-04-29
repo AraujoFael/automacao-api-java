@@ -6,11 +6,10 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static in.co.gorest.core.Constantes.APP_TOKEN;
 import static io.restassured.RestAssured.*;
 import static in.co.gorest.utils.Reutilizaveis.createUser;
 
-public class DeleteUserTest extends BaseTest {
+public class DeletandoUsuario extends BaseTest {
     @Test
     public void deletarSemToken() {
         Map<String, Object> params = new HashMap<>();

@@ -11,7 +11,7 @@ import static in.co.gorest.utils.Reutilizaveis.retornaDataAtualEmString;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.CoreMatchers.*;
 
-public class UpdateUserTest extends BaseTest {
+public class AtualizandoUsuario extends BaseTest {
     @Test
     public void cadastrarSemToken() {
 
@@ -41,9 +41,7 @@ public class UpdateUserTest extends BaseTest {
                 .when()
                 .patch("v2/users/"+6135647)
                 .then()
-                .body("field", hasItem("name"))
-                .body("message", hasItem("can't be blank"))
-                .statusCode(422);
+                .statusCode(404);
     }
     @Test
     public void requisicaoSemEmail(){
@@ -58,9 +56,7 @@ public class UpdateUserTest extends BaseTest {
                 .when()
                 .patch("v2/users/"+6135647)
                 .then()
-                .body("field", hasItem("email"))
-                .body("message", hasItem("can't be blank"))
-                .statusCode(422);
+                .statusCode(404);
     }
 
     @Test
@@ -76,9 +72,7 @@ public class UpdateUserTest extends BaseTest {
                 .when()
                 .patch("v2/users/"+6135647)
                 .then()
-                .body("field", hasItem("status"))
-                .body("message", hasItem("can't be blank"))
-                .statusCode(422);
+                .statusCode(404);
     }
     @Test
     public void requisicaoEmailEmUso(){

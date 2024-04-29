@@ -5,6 +5,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import org.hamcrest.Matchers;
 import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 
 public class BaseTest implements Constantes {
     @BeforeClass
