@@ -36,21 +36,7 @@ Este repositório serve como um portfólio abrangente para demonstrar habilidade
 5. **Estrutura Hierárquica de Testes:**
    - Organização dos testes em uma estrutura hierárquica que reflete a arquitetura da aplicação, facilitando a identificação e execução específica de conjuntos de testes.
   
-     **Estrutura: **
-projeto-automacao-api/
-├── src/
-│ └── test/
-│ └── java/
-│ └── tests/
-│ ├── core/
-│ │ └── (arquivos do core)
-│ ├── utils/
-│ │ └── (arquivos de utilidades)
-│ └── (arquivos de teste)
-├── pom.xml (opcional, se estiver usando Maven)
-└── README.md
 
-  
    ## Como Clonar o Repositório
 
 Para clonar este repositório para o seu computador local, siga estas instruções:
