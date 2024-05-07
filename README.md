@@ -67,4 +67,7 @@ Para executar os testes neste repositório sem usar o Maven, siga estas etapas:
 
 3. **Execute os Testes de Cada Classe:** Como o Junit já se encotra como depedência do projeto basta executar o teste desejado de cada classe ou executar a class como um todo.
 
+## Mapeamento de teste 
+
+Foi construido um mapeamento sobre os teste para ter como base de um planejamento em forma de mapa mental ele se encontra nesse link(https://app.mural.co/t/automacaoapi8216/m/automacaoapi8216/1702041650109/0851a1bb2b73ef63cd6eabb8d63aa5492508bb46?sender=ue05cc1ebe0f1e43c5e3d8335)
 
